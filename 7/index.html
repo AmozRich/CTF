@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cryptography Challenge</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #0a192f, #112240);
+            transition: background 0.5s ease;
+        }
+        .container {
+            text-align: center;
+            max-width: 600px;
+            padding: 30px;
+            margin: 20px;
+            background-color: rgba(16, 32, 64, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(100, 255, 218, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            color: #64ffda;
+        }
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 25px rgba(100, 255, 218, 0.2);
+        }
+        h1 {
+            color: #64ffda;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(100, 255, 218, 0.5);
+        }
+        button {
+            margin-top: 20px;
+            padding: 12px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            color: #64ffda;
+            border: 2px solid #64ffda;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+            background: transparent;
+            font-family: 'Courier New', monospace;
+        }
+        button:hover {
+            background: rgba(100, 255, 218, 0.1);
+            box-shadow: 0 0 20px rgba(100, 255, 218, 0.3);
+            transform: scale(1.05);
+        }
+        #back-button {
+            border-color: #ff6b6b;
+            color: #ff6b6b;
+        }
+        #back-button:hover {
+            background: rgba(255, 107, 107, 0.1);
+            box-shadow: 0 0 20px rgba(255, 107, 107, 0.3);
+        }
+        #cipher-text {
+            display: none;
+            font-family: 'Courier New', monospace;
+            margin: 30px 0;
+            padding: 25px;
+            background: rgba(16, 32, 64, 0.8);
+            border-radius: 10px;
+            word-wrap: break-word;
+            border-left: 4px solid #64ffda;
+            color: #64ffda;
+            font-size: 1.4em;
+            transition: all 0.3s ease;
+            letter-spacing: 3px;
+        }
+        #cipher-text:hover {
+            transform: translateX(5px);
+            border-left-width: 8px;
+            background: rgba(16, 32, 64, 0.9);
+            letter-spacing: 4px;
+        }
+        .second-page {
+            display: none;
+        }
+        @keyframes typewriter {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        @keyframes blink {
+            50% { border-color: transparent; }
+        }
+        .typing-effect {
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 3px solid #64ffda;
+            animation: 
+                typewriter 4s steps(40) 1s forwards,
+                blink 1s step-end infinite;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .show {
+            animation: fadeIn 0.5s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="first-page">
+            <h1 class="typing-effect">Cryptography Challenge</h1>
+            <button onclick="showCipher()">Decrypt Message</button>
+        </div>
+        <div class="second-page">
+            <div id="cipher-text">8 1 19 8 3 20 6 {24 16 12 15 18 5 20 8 21 14 24 16 12 15 18 4}</div>
+            <button id="back-button" onclick="goBack()">Return</button>
+        </div>
+    </div>
+
+    <script>
+        function showCipher() {
+            document.querySelector('.first-page').style.display = 'none';
+            document.querySelector('.second-page').style.display = 'block';
+            document.getElementById('cipher-text').style.display = 'block';
+            document.querySelector('.second-page').classList.add('show');
+        }
+
+        function goBack() {
+            document.querySelector('.second-page').classList.remove('show');
+            document.querySelector('.first-page').style.display = 'block';
+            document.querySelector('.second-page').style.display = 'none';
+            document.querySelector('.first-page').classList.add('show');
+        }
+    </script>
+</body>
+</html>
