@@ -81,8 +81,11 @@
             border-left-width: 8px;
             background: rgba(0, 0, 0, 0.4);
         }
-        .second-page {
+        .first-page, .second-page, .third-page {
             display: none;
+        }
+        .first-page {
+            display: block;
         }
         @keyframes glitch {
             0% { transform: translate(0) }
@@ -102,26 +105,43 @@
         .show {
             animation: fadeIn 0.5s ease forwards;
         }
+        .matrix-text {
+            font-family: 'Courier New', monospace;
+            color: #00ff00;
+            text-shadow: 0 0 5px #00ff00;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="first-page">
             <h1>Reverse Engineering Challenge</h1>
-            <button onclick="showChallenge()">Begin Challenge</button>
+            <button onclick="showSecondPage()">Start Challenge</button>
         </div>
         <div class="second-page">
-            <div id="challenge-text">\u{5c}\u{78}\u{34}\u{38}\u{5c}\u{78}\u{36}\u{31}\u{5c}\u{78}\u{37}\u{33}\u{5c}\u{78}\u{36}\u{38}\u{5c}\u{78}\u{33}\u{32}\u{5c}\u{78}\u{32}\u{65}\u{5c}\u{78}\u{33}\u{30}\u{5c}\u{78}\u{34}\u{33}\u{5c}\u{78}\u{35}\u{34}\u{5c}\u{78}\u{34}\u{36}\u{5c}\u{78}\u{37}\u{62}\u{5c}\u{78}\u{34}\u{34}\u{5c}\u{78}\u{33}\u{34}\u{5c}\u{78}\u{36}\u{64}\u{5c}\u{78}\u{36}\u{65}\u{5c}\u{78}\u{35}\u{66}\u{5c}\u{78}\u{37}\u{39}\u{5c}\u{78}\u{33}\u{30}\u{5c}\u{78}\u{37}\u{35}\u{5c}\u{78}\u{35}\u{66}\u{5c}\u{78}\u{36}\u{36}\u{5c}\u{78}\u{33}\u{30}\u{5c}\u{78}\u{37}\u{35}\u{5c}\u{78}\u{36}\u{65}\u{5c}\u{78}\u{36}\u{34}\u{5c}\u{78}\u{35}\u{66}\u{5c}\u{78}\u{33}\u{31}\u{5c}\u{78}\u{37}\u{34}\u{5c}\u{78}\u{35}\u{66}\u{5c}\u{78}\u{34}\u{38}\u{5c}\u{78}\u{33}\u{33}\u{5c}\u{78}\u{36}\u{38}\u{5c}\u{78}\u{33}\u{33}\u{5c}\u{78}\u{37}\u{64}</div>
+            <h1>Ready to Begin?</h1>
+            <p class="matrix-text">Prepare to decode the binary secrets...</p>
+            <button onclick="showChallenge()">Access Code</button>
             <button id="back-button" onclick="goBack()">Return</button>
+        </div>
+        <div class="third-page">
+            <div id="challenge-text">\u{5c}\u{78}\u{34}\u{38}\u{5c}\u{78}\u{36}\u{31}\u{5c}\u{78}\u{37}\u{33}\u{5c}\u{78}\u{36}\u{38}\u{5c}\u{78}\u{33}\u{32}\u{5c}\u{78}\u{32}\u{65}\u{5c}\u{78}\u{33}\u{30}\u{5c}\u{78}\u{34}\u{33}\u{5c}\u{78}\u{35}\u{34}\u{5c}\u{78}\u{34}\u{36}\u{5c}\u{78}\u{37}\u{62}\u{5c}\u{78}\u{34}\u{34}\u{5c}\u{78}\u{33}\u{34}\u{5c}\u{78}\u{36}\u{64}\u{5c}\u{78}\u{36}\u{65}\u{5c}\u{78}\u{35}\u{66}\u{5c}\u{78}\u{37}\u{39}\u{5c}\u{78}\u{33}\u{30}\u{5c}\u{78}\u{37}\u{35}\u{5c}\u{78}\u{35}\u{66}\u{5c}\u{78}\u{36}\u{36}\u{5c}\u{78}\u{33}\u{30}\u{5c}\u{78}\u{37}\u{35}\u{5c}\u{78}\u{36}\u{65}\u{5c}\u{78}\u{36}\u{34}\u{5c}\u{78}\u{35}\u{66}\u{5c}\u{78}\u{33}\u{31}\u{5c}\u{78}\u{37}\u{34}\u{5c}\u{78}\u{35}\u{66}\u{5c}\u{78}\u{34}\u{38}\u{5c}\u{78}\u{33}\u{33}\u{5c}\u{78}\u{36}\u{38}\u{5c}\u{78}\u{33}\u{33}\u{5c}\u{78}\u{37}\u{64}</div>
+            <button id="back-button" onclick="goToSecondPage()">Return</button>
         </div>
     </div>
 
     <script>
-        function showChallenge() {
+        function showSecondPage() {
             document.querySelector('.first-page').style.display = 'none';
             document.querySelector('.second-page').style.display = 'block';
-            document.getElementById('challenge-text').style.display = 'block';
             document.querySelector('.second-page').classList.add('show');
+        }
+
+        function showChallenge() {
+            document.querySelector('.second-page').style.display = 'none';
+            document.querySelector('.third-page').style.display = 'block';
+            document.getElementById('challenge-text').style.display = 'block';
+            document.querySelector('.third-page').classList.add('show');
         }
 
         function goBack() {
@@ -129,6 +149,13 @@
             document.querySelector('.first-page').style.display = 'block';
             document.querySelector('.second-page').style.display = 'none';
             document.querySelector('.first-page').classList.add('show');
+        }
+
+        function goToSecondPage() {
+            document.querySelector('.third-page').classList.remove('show');
+            document.querySelector('.second-page').style.display = 'block';
+            document.querySelector('.third-page').style.display = 'none';
+            document.querySelector('.second-page').classList.add('show');
         }
     </script>
 </body>

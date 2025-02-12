@@ -82,8 +82,11 @@
             background: rgba(16, 32, 64, 0.9);
             letter-spacing: 4px;
         }
-        .second-page {
+        .first-page, .second-page, .third-page {
             display: none;
+        }
+        .first-page {
+            display: block;
         }
         @keyframes typewriter {
             from { width: 0; }
@@ -113,20 +116,31 @@
     <div class="container">
         <div class="first-page">
             <h1 class="typing-effect">Cryptography Challenge</h1>
-            <button onclick="showCipher()">Decrypt Message</button>
+            <button onclick="showSecondPage()">Start Challenge</button>
         </div>
         <div class="second-page">
-            <div id="cipher-text">8 1 19 8 3 20 6 {24 16 12 15 18 5 20 8 21 14 24 16 12 15 18 4}</div>
+            <h1 class="typing-effect">Ready to Decrypt?</h1>
+            <button onclick="showCipher()">Decrypt Message</button>
             <button id="back-button" onclick="goBack()">Return</button>
+        </div>
+        <div class="third-page">
+            <div id="cipher-text">8 1 19 8 3 20 6 {24 16 12 15 18 5 20 8 21 14 24 16 12 15 18 4}</div>
+            <button id="back-button" onclick="goToSecondPage()">Return</button>
         </div>
     </div>
 
     <script>
-        function showCipher() {
+        function showSecondPage() {
             document.querySelector('.first-page').style.display = 'none';
             document.querySelector('.second-page').style.display = 'block';
-            document.getElementById('cipher-text').style.display = 'block';
             document.querySelector('.second-page').classList.add('show');
+        }
+
+        function showCipher() {
+            document.querySelector('.second-page').style.display = 'none';
+            document.querySelector('.third-page').style.display = 'block';
+            document.getElementById('cipher-text').style.display = 'block';
+            document.querySelector('.third-page').classList.add('show');
         }
 
         function goBack() {
@@ -134,6 +148,13 @@
             document.querySelector('.first-page').style.display = 'block';
             document.querySelector('.second-page').style.display = 'none';
             document.querySelector('.first-page').classList.add('show');
+        }
+
+        function goToSecondPage() {
+            document.querySelector('.third-page').classList.remove('show');
+            document.querySelector('.second-page').style.display = 'block';
+            document.querySelector('.third-page').style.display = 'none';
+            document.querySelector('.second-page').classList.add('show');
         }
     </script>
 </body>
