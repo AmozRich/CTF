@@ -3,178 +3,259 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coding Challenges</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(to bottom, #000428, #004e92);
-            min-height: 100vh;
-            padding: 20px;
-            color: #f0f0f0;
-            overflow-x: hidden;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-            color: #fff;
-        }
-        .challenges-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-        .challenge-card {
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
-            padding: 20px;
-            text-align: center;
-            transition: all 0.3s ease;
-            height: 300px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-        .challenge-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, transparent, white, transparent);
-            transform: translateX(-100%) rotate(45deg);
-            transition: all 0.6s ease;
-            opacity: 0;
-        }
-        .challenge-card:hover::before {
-            transform: translateX(200%) rotate(45deg);
-            opacity: 0.2;
-        }
-        .challenge-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(255,255,255,0.2);
-        }
-        .challenge-card h2 {
-            background: linear-gradient(to right, #00b4db, #0083b0);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 15px;
-            transition: all 0.3s ease;
-        }
-        .challenge-card:hover h2 {
-            background: linear-gradient(to right, #ffffff, #e0e0e0);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        .challenge-placeholder {
-            background: rgba(0,0,0,0.2);
-            flex-grow: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #bbb;
-            border-radius: 5px;
-            margin-top: 15px;
-            transition: background 0.3s ease;
-        }
-        .challenge-card:hover .challenge-placeholder {
-            background: rgba(255,255,255,0.1);
-        }
-    </style>
+    <title>CTF Challenge Game</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="user-info">
+        <span id="userDisplay"></span>
+        <button onclick="logout()" class="logout-btn">Logout</button>
+    </div>
+
     <div class="container">
-        <div class="header">
-            <h1>Coding Challenges</h1>
-            <p>Explore the Universe of Code</p>
+        <header>
+            <h1 class="typing-effect">Capture The Flag</h1>
+            <p class="subtitle typing-effect">Test your skills. Find the flags. Become a master.</p>
+        </header>
+
+        <div class="progress-container">
+            <div class="progress-stats">
+                <span id="completedCount">0</span> / <span id="totalCount">8</span> Challenges Completed
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
         </div>
 
-        <div class="challenges-grid">
-            <div class="challenge-card">
-                <h2>Challenge 1</h2>
-                <div class="challenge-placeholder">
-                    Problem Description
+        <main>
+            <section class="challenges">
+                <h2>Challenges</h2>
+                <div class="challenge-grid">
+                    <a href="#" class="challenge-card" data-challenge="1" data-path="1/1.html" data-desc="Basic Web Challenge">
+                        <span class="challenge-number">01</span>
+                        <h3>Challenge 1</h3>
+                        <p>Basic Web Challenge</p>
+                    </a>
+                    <a href="#" class="challenge-card" data-challenge="2" data-path="2/2.html" data-desc="CSS and JavaScript Challenge">
+                        <span class="challenge-number">02</span>
+                        <h3>Challenge 2</h3>
+                        <p>CSS and JavaScript Challenge</p>
+                    </a>
+                    <a href="#" class="challenge-card" data-challenge="3" data-path="3/3.html" data-desc="Hidden Elements Challenge">
+                        <span class="challenge-number">03</span>
+                        <h3>Challenge 3</h3>
+                        <p>Hidden Elements Challenge</p>
+                    </a>
+                    <a href="#" class="challenge-card" data-challenge="4" data-path="4/4.index.html" data-desc="Advanced Web Challenge">
+                        <span class="challenge-number">04</span>
+                        <h3>Challenge 4</h3>
+                        <p>Advanced Web Challenge</p>
+                    </a>
+                    <a href="#" class="challenge-card" data-challenge="5" data-path="5/5.index.html" data-desc="Authentication Challenge">
+                        <span class="challenge-number">05</span>
+                        <h3>Challenge 5</h3>
+                        <p>Authentication Challenge</p>
+                    </a>
+                    <a href="#" class="challenge-card" data-challenge="6" data-path="6/6.index.html" data-desc="Encryption Challenge">
+                        <span class="challenge-number">06</span>
+                        <h3>Challenge 6</h3>
+                        <p>Encryption Challenge</p>
+                    </a>
+                    <a href="#" class="challenge-card" data-challenge="7" data-path="7/7.index.html" data-desc="Network Challenge">
+                        <span class="challenge-number">07</span>
+                        <h3>Challenge 7</h3>
+                        <p>Network Challenge</p>
+                    </a>
+                    <a href="#" class="challenge-card" data-challenge="8" data-path="8/8.index.html" data-desc="Final Web Challenge">
+                        <span class="challenge-number">08</span>
+                        <h3>Challenge 8</h3>
+                        <p>Final Web Challenge</p>
+                    </a>
                 </div>
-            </div>
+            </section>
+        </main>
+    </div>
 
-            <div class="challenge-card">
-                <h2>Challenge 2</h2>
-                <div class="challenge-placeholder">
-                    Problem Description
-                </div>
+    <div id="challengeModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <p id="modalDetails"></p>
+            <div class="flag-input">
+                <label for="flagInput">Submit Flag:</label>
+                <textarea id="flagInput" placeholder="Enter your flag here..." rows="3"></textarea>
             </div>
-
-            <div class="challenge-card">
-                <h2>Challenge 3</h2>
-                <div class="challenge-placeholder">
-                    Problem Description
-                </div>
-            </div>
-
-            <div class="challenge-card">
-                <h2>Challenge 4</h2>
-                <div class="challenge-placeholder">
-                    Problem Description
-                </div>
-            </div>
-
-            <div class="challenge-card">
-                <h2>Challenge 5</h2>
-                <div class="challenge-placeholder">
-                    Problem Description
-                </div>
-            </div>
-
-            <div class="challenge-card">
-                <h2>Challenge 6</h2>
-                <div class="challenge-placeholder">
-                    Problem Description
-                </div>
-            </div>
-
-            <div class="challenge-card">
-                <h2>Challenge 7</h2>
-                <div class="challenge-placeholder">
-                    Problem Description
-                </div>
-            </div>
-
-            <div class="challenge-card">
-                <h2>Challenge 8</h2>
-                <div class="challenge-placeholder">
-                    Problem Description
-                </div>
-            </div>
-
-            <div class="challenge-card">
-                <h2>Challenge 9</h2>
-                <div class="challenge-placeholder">
-                    Problem Description
-                </div>
-            </div>
-
-            <div class="challenge-card">
-                <h2>Challenge 10</h2>
-                <div class="challenge-placeholder">
-                    Problem Description
-                </div>
+            <div class="modal-buttons">
+                <button id="startChallenge" class="start-btn">Start Challenge</button>
+                <button id="submitFlag" class="submit-btn">Submit Flag</button>
             </div>
         </div>
     </div>
+
+    <script src="matrix.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            new MatrixEffect();
+            
+            // Move existing authentication check here
+            const userData = localStorage.getItem('ctfUserData');
+            if (!userData) {
+                window.location.href = 'registration.html';
+                return;
+            }
+            const user = JSON.parse(userData);
+            document.getElementById('userDisplay').textContent = `Welcome, ${user.name}!`;
+            
+            // Initialize progress
+            updateProgress();
+
+            // Add sequential typing effect to challenge titles
+            const challengeTitles = document.querySelectorAll('.challenge-card h3');
+            challengeTitles.forEach((title, index) => {
+                title.style.opacity = '0';
+                setTimeout(() => {
+                    title.style.opacity = '1';
+                    title.classList.add('show');
+                }, 6000 + (index * 200)); // Start after main title animations
+            });
+        });
+
+        function logout() {
+            localStorage.removeItem('ctfUserData');
+            window.location.href = 'registration.html';
+        }
+
+        let currentChallenge = '';
+        const modal = document.getElementById('challengeModal');
+        const challengeCards = document.querySelectorAll('.challenge-card');
+        const closeBtn = document.querySelector('.close');
+        const startBtn = document.getElementById('startChallenge');
+
+        // Handle challenge card clicks
+        challengeCards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                e.preventDefault();
+                currentChallenge = {
+                    number: card.dataset.challenge,
+                    path: card.dataset.path,
+                    description: card.dataset.desc
+                };
+                
+                document.getElementById('modalTitle').textContent = `Challenge ${currentChallenge.number}`;
+                document.getElementById('modalDetails').textContent = currentChallenge.description;
+                modal.style.display = 'block';
+            });
+        });
+
+        // Modal controls
+        closeBtn.onclick = () => modal.style.display = 'none';
+        window.onclick = (e) => {
+            if (e.target == modal) modal.style.display = 'none';
+        }
+
+        startBtn.onclick = () => {
+            if (currentChallenge) {
+                window.open(currentChallenge.path, '_blank');
+                modal.style.display = 'none';
+            }
+        }
+
+        // Add flag submission button handler
+        document.getElementById('submitFlag').onclick = async () => {
+            const flag = document.getElementById('flagInput').value;
+            const userData = JSON.parse(localStorage.getItem('ctfUserData'));
+            const flagSubmissions = localStorage.getItem('flagSubmissions') ? 
+                JSON.parse(localStorage.getItem('flagSubmissions')) : [];
+            
+            // Create submission object
+            const submission = {
+                challengeNumber: currentChallenge.number,
+                flag: flag,
+                timestamp: new Date().toISOString(),
+                user: {
+                    name: userData.name,
+                    admissionNo: userData.admissionNo,
+                    email: userData.email
+                }
+            };
+            
+            // Add to local storage
+            flagSubmissions.push(submission);
+            localStorage.setItem('flagSubmissions', JSON.stringify(flagSubmissions));
+
+            // Send to server
+            const serverSubmission = {
+                userData: userData,
+                allSubmissions: flagSubmissions,
+                completedChallenges: localStorage.getItem('completedChallenges') ? 
+                    JSON.parse(localStorage.getItem('completedChallenges')) : [],
+                currentSubmission: submission
+            };
+
+            const sent = await sendDataToServer(serverSubmission);
+            if (sent) {
+                // Update completed challenges
+                const completedChallenges = localStorage.getItem('completedChallenges') ? 
+                    JSON.parse(localStorage.getItem('completedChallenges')) : [];
+                
+                if (!completedChallenges.includes(currentChallenge.number)) {
+                    completedChallenges.push(currentChallenge.number);
+                    localStorage.setItem('completedChallenges', JSON.stringify(completedChallenges));
+                    updateProgress();
+                }
+                
+                alert('Flag submitted successfully!');
+            } else {
+                alert('Flag saved locally but failed to send to server. Will retry later.');
+            }
+
+            document.getElementById('flagInput').value = '';
+            modal.style.display = 'none';
+        }
+
+        // Add progress tracking functions
+        function updateProgress() {
+            const completedChallenges = localStorage.getItem('completedChallenges') ? 
+                JSON.parse(localStorage.getItem('completedChallenges')) : [];
+            
+            const totalChallenges = document.querySelectorAll('.challenge-card').length;
+            const completed = completedChallenges.length;
+            
+            document.getElementById('completedCount').textContent = completed;
+            document.getElementById('totalCount').textContent = totalChallenges;
+            document.getElementById('progressFill').style.width = `${(completed/totalChallenges) * 100}%`;
+            
+            // Update challenge card appearances
+            completedChallenges.forEach(challengeNum => {
+                const card = document.querySelector(`.challenge-card[data-challenge="${challengeNum}"]`);
+                if (card) card.classList.add('completed');
+            });
+        }
+
+        // Add this new function for sending data to server
+        async function sendDataToServer(submissionData) {
+            try {
+                const response = await fetch('https://your-api-endpoint/submissions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(submissionData)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                console.log('Server response:', result);
+                return true;
+            } catch (error) {
+                console.error('Error sending data to server:', error);
+                return false;
+            }
+        }
+    </script>
 </body>
 </html>
