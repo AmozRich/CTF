@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTF Registration</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div>
+        <div class="container registration-form">
+            <h1>Register for CTF</h1>
+            <form id="regForm" onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="admissionNo">Admission Number</label>
+                    <input type="text" id="admissionNo" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email ID</label>
+                    <input type="email" id="email" required>
+                </div>
+                <button type="submit" class="submit-btn">Start Challenge</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="matrix.js"></script>
+    <script>
+        // Initialize matrix effect after script is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new MatrixEffect();
+        });
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            const userData = {
+                name: document.getElementById('name').value,
+                admissionNo: document.getElementById('admissionNo').value,
+                email: document.getElementById('email').value
+            };
+
+            // Store user data in localStorage
+            localStorage.setItem('ctfUserData', JSON.stringify(userData));
+
+            // Redirect to challenges page
+            window.location.href = 'index.html';
+        }
+
+        // Check if user is already registered
+        window.onload = () => {
+            if (localStorage.getItem('ctfUserData')) {
+                window.location.href = 'index.html';
+            }
+        }
+    </script>
+</body>
+</html>
